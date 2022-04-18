@@ -1,0 +1,83 @@
+<html>
+<head>
+<script type="text/javascript">
+
+    document.getElementById("demo").innerHTML = "Hello World!";
+//问题，使用户点击到子界面dialog时，不让其点击主界面，不让子组件被隐藏，让其固定在最前端，
+
+function open_win()
+{
+window.open("work_01.html","_blank",
+"toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=400, height=400");
+   var hideobj=document.getElementById("hidebg");
+   hidebg.style.display="block";  //显示隐藏层
+   hidebg.style.height=document.body.clientHeight+"px";  //设置隐藏层的高度为当前页面高度
+   document.getElementById("hidebox").style.display="block";  //显示弹出层
+
+
+}
+
+function topwin1()
+{
+ var result = window.open("work_01.html","","dialogWidth:300px;dialogHeight:300px;scroll:no;status:no").focus();
+
+}
+
+function topwin2()
+{
+   window.showModelessDialog("work_01.html","","dialogWidth:300px;dialogHeight:300px;scroll:no;status:no")
+}
+
+//function topwin2()
+//{
+//window.open("work_01.html","_blank",
+//"toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=400, height=400");
+
+//if(Window.oopener.closed = true){
+//oEvent=window.event;
+//}
+//}
+
+const popupWindow = null;
+
+function refreshPopupWindow() {
+  if (popupWindow && !popupWindow.closed) {
+    // popupWindow is open, refresh it
+    popupWindow.location.reload(true);
+  } else {
+    // Open a new popup window
+    popupWindow = window.open('work_01.html', 'dataWindow');
+  }
+}
+
+
+</script>
+</head>
+
+<body>
+<form>
+<input type="button" value="打开窗口" onclick="open_win()">
+<input type="button" value="打开模式窗口" onclick="topwin1()">
+<input type="button" value="打开无模式窗口" onclick="topwin2()">
+<input type="button" value="打开无模式窗口" onclick="refreshPopupWindow()">
+<div id="hidebox" onClick="hide();">点击关闭</div>
+<div id="content" onClick="show();">点击试试</div>
+
+
+</form>
+</body>
+
+<style>
+   body { margin:0px;padding:0px;text-align: center;}
+   #hidebg { position:absolute;left:0px;top:0px;
+      background-color:#000;
+      width:100%;  /*宽度设置为100%，这样才能使隐藏背景层覆盖原页面*/
+      filter:alpha(opacity=60);  /*设置透明度为60%*/
+      opacity:0.6;  /*非IE浏览器下设置透明度为60%*/
+      display:none; /* https://www.jb51.net */
+      z-Index:2;}
+   #hidebox { position:absolute;width:400px;height:300px;top:200px;left:30%;background-color:#fff;display:none;cursor:pointer;z-Index:3;}
+   #content { text-align:center;cursor:pointer;z-Index:1;}
+</style>
+
+</html>

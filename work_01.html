@@ -1,0 +1,66 @@
+<html>
+<body>
+<!---->
+<input type="button" value="打开窗口" onclick="open_win()" onblur="focus()">
+<!---->
+
+
+<br>
+    <button onclick = dakai()>button</button>
+    <dialog id = 'dialog' onclick="">this is a dialog</dialog>
+
+     <input type="button" value="打开百度" onclick="window.location='http://baidu.com'" />
+<div id="hidebg"></div>
+<div id="hidebox" onClick="hide();">点击关闭</div>
+
+
+<script>
+///////////////////////////////////////    
+document.getElementById("demo").innerHTML = "Hello World!";
+//问题，使用户点击到子界面dialog时，不让其点击主界面，不让子组件被隐藏，让其固定在最前端，
+
+
+function open_win()
+{
+window.open("work_01.html","_blank",
+"toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=400, height=400");
+   var hideobj=document.getElementById("hidebg");
+   hidebg.style.display="block";  //显示隐藏层
+   hidebg.style.height=document.body.clientHeight+"px";  //设置隐藏层的高度为当前页面高度
+   document.getElementById("hidebox").style.display="block";  //显示弹出层
+    opener.focus();
+}
+/////////////////////////////////////////////////////////////////////////////////
+var dakai = function(){
+    var x = document.getElementById("dialog").open;
+    console.log(x)
+    if(x){
+        dpcument.getElementById("dialog").removeAttribute('open')
+    }else{
+        document.getElementById("dialog").setAttribute('open','open')
+    }
+}
+/////////////////////////////////////////////////////////////////////////////
+
+function hide()  //去除隐藏层和弹出层
+{
+   document.getElementById("hidebg").style.display="none";
+   document.getElementById("hidebox").style.display="none";
+}
+</script>
+
+<style>
+   body { margin:0px;padding:0px;text-align: center;}
+   #hidebg { position:absolute;left:0px;top:0px;
+      background-color:#000;
+      width:100%;  /*宽度设置为100%，这样才能使隐藏背景层覆盖原页面*/
+      filter:alpha(opacity=60);  /*设置透明度为60%*/
+      opacity:0.6;  /*非IE浏览器下设置透明度为60%*/
+      display:none; /* https://www.jb51.net */
+      z-Index:2;}
+   #hidebox { position:absolute;width:400px;height:300px;top:200px;left:30%;background-color:#fff;display:none;cursor:pointer;z-Index:3;}
+   #content { text-align:center;cursor:pointer;z-Index:1;}
+</style>
+
+</body>
+</html>
