@@ -1,0 +1,27 @@
+<h3 id="h0">图书管理</h3>
+
+
+<form method="post">
+    <p>作者名: <input type="text" name="author"></p>
+    <p>书名： <input type="text" name="book"></p>
+    <input type="submit" value="提交  ">
+</form>
+{% with flash = get_flashed_messages() %}
+    {% for foo in flash %}
+        {% if foo %}
+            <p>{{ foo }}</p>
+        {% endif %}
+    {% endfor %}
+{% endwith %}
+<hr>
+
+{% for foo in queryObj %}
+    <ul>
+        <li>{{ foo.name }} <a rel="nofollow" href="{{ url_for('book.delauth', delid=foo.id) }}"> 删除</a></li>
+        {% for book in foo.book %}
+            <ul>
+                <li>{{ book.name }} <a rel="nofollow" href="{{ url_for('book.delete', delid=book.id)  }}">删除</a></li>
+            </ul>
+        {% endfor %}
+    </ul>
+{% endfor %}
